@@ -13,8 +13,43 @@ image.src='mainpage.png'
 const playerImage = new Image();
 playerImage.src = 'Images/playerDown.png';
 
-image.onload=()=>{
-    context.drawImage(image,-500,-30);
+class Sprite{
+    constructor({position, velocity , image}){
+        this.position = this.position
+        this.image = image
+    }
+
+    draw(){
+        context.drawImage(this.image,-500,-30);
+    }
+}
+
+const background = new Sprite({
+    position:{
+     x:-500,
+     y:-30
+    },
+    image: image,
+});
+
+const keys = {
+    w:{
+        pressed : false
+    },
+    a:{
+        pressed : false
+    },
+    s:{
+        pressed : false
+    },
+    d:{
+        pressed : false
+    }
+}
+
+function animate() {
+    window.requestAnimationFrame(animate)
+    background.draw();
     context.drawImage(playerImage,
         0,
         0,
@@ -26,7 +61,29 @@ image.onload=()=>{
         playerImage.height
         )
 }
+animate();
 
 window.addEventListener('keydown',(e)=> {
-    console.log(e.key);
+    
+    switch (e.key) {
+        case 'w':
+            keys.w.pressed = true;
+            break;
+    
+        case 'a':
+            keys.a.pressed = true;
+            break;
+    
+        case 's':
+            keys.s.pressed = true;
+            break;
+    
+                    
+        case 'd':
+            keys.d.pressed = true;
+            break;
+                
+        default:
+            break;
+    }
 })
